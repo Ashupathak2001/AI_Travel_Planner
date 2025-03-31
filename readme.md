@@ -2,7 +2,7 @@
 
 An intelligent travel planning assistant that creates personalized itineraries using natural language processing.
 
-![Travel Planner Screenshot]("C:\Users\Ashish\Pictures\Screenshots\Screenshot 2025-03-31 223941.png")
+![Travel Planner Screenshot]("./Screenshot 2025-03-31 223941.png")
 
 ## Features
 
