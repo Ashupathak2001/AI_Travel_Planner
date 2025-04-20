@@ -1,3 +1,7 @@
 streamlit
 ollama
 requests
+folium
+streamlit_folium
+BeautifulSoup
+duckduckgo_search
