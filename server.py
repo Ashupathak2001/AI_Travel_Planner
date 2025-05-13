@@ -355,6 +355,7 @@ if "step" not in st.session_state:
     st.session_state.step = 1
 if "form_data" not in st.session_state:
     st.session_state.form_data = {
+        "origin": "",
         "destination": "",
         "trip_length": 5,
         "start_date": datetime.date.today(),
@@ -399,6 +400,10 @@ def show_progress():
 
 # -------------------- STEP 1: Destination Selection --------------------
 def step_destination_selection():
+    st.markdown("### Where are you departing from?")
+    origin = st.text_input("Enter your current country/city of departure", value=st.session_state.form_data.get("origin", ""))
+    st.session_state.form_data["origin"] = origin
+
     st.markdown("<div class='animate-fade'>", unsafe_allow_html=True)
     st.subheader("Step 1: Where do you want to go?")
     
@@ -507,6 +512,12 @@ def step_preferences():
     with col1:
         st.markdown(f"""
             <div class="card">
+                <h3>🌍 From</h3>
+                <p style="font-size: 18px; font-weight: bold;">{st.session_state.form_data["origin"]}</p>
+            </div>
+        """, unsafe_allow_html=True)
+        st.markdown(f"""
+            <div class="card">
                 <h3>📍 Destination</h3>
                 <p style="font-size: 18px; font-weight: bold;">{st.session_state.form_data["destination"]}</p>
             </div>
@@ -606,7 +617,7 @@ def generate_itinerary():
 
     # Travel data
     st.session_state.travel_data["flights"] = generate_mock_flights(
-        "Your City", data["destination"], data["start_date"], data["end_date"])
+        data["origin"], data["destination"], data["start_date"], data["end_date"])
     
     st.session_state.travel_data["car_rentals"] = generate_mock_car_rentals(
         data["destination"], data["start_date"], data["end_date"])
@@ -621,6 +632,7 @@ def show_results():
     st.success(f"✨ Your {st.session_state.form_data['destination']} itinerary is ready!")
     
     # Display destination summary card
+    origin = st.session_state.form_data["origin"]
     dest = st.session_state.form_data["destination"]
     dest_images = {
         "Paris": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=2073&auto=format&fit=crop",

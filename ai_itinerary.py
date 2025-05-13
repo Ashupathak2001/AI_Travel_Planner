@@ -4,6 +4,7 @@ def generate_itinerary_prompt(data):
     return f'''
 You are a professional travel assistant. Create a detailed travel itinerary with the following details:
 
+Origin: {data['origin']}
 Destination: {data['destination']}
 Trip Duration: {data['trip_length']} days
 Dates: {data['start_date']} to {data['end_date']}

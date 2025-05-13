@@ -3,5 +3,5 @@ ollama
 requests
 folium
 streamlit_folium
-BeautifulSoup
+BeautifulSoup4
 duckduckgo_search
