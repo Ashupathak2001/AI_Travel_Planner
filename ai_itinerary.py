@@ -1,5 +1,12 @@
 # ai_itinerary.py
 
+import cohere
+import os
+
+COHERE_API_KEY = os.getenv("COHERE_API_KEY")
+
+co = cohere.Client(COHERE_API_KEY)
+
 def generate_itinerary_prompt(data):
     return f'''
 You are a professional travel assistant. Create a detailed travel itinerary with the following details:
@@ -26,31 +33,15 @@ Instructions:
 Use Markdown for formatting, like **bold** for highlights, and `code` for special notes.
 '''
 
-
-def generate_with_ollama(prompt, system_prompt="", model="tinyllama", host="http://localhost:11434"):
-    import requests
-
-    url = f"{host}/api/chat"
-    messages = []
-    if system_prompt:
-        messages.append({"role": "system", "content": system_prompt})
-    messages.append({"role": "user", "content": prompt})
-
-    data = {
-        "model": model,
-        "messages": messages,
-        "stream": False
-    }
-
+def generate_with_cohere(prompt, model="command-r-plus"):
     try:
-        response = requests.post(url, json=data)
-        response.raise_for_status()
-        result = response.json()
+        response = co.chat(
+            model=model,
+            message=prompt,
+            temperature=0.7,
+            max_tokens=1000,
+        )
+        return response.text
+    except Exception as e:
+        return f"Error generating itinerary with Cohere: {str(e)}"
 
-        if "message" in result and "content" in result["message"]:
-            return result["message"]["content"]
-        else:
-            return "Error: Unexpected response format from Ollama."
-
-    except requests.exceptions.RequestException as e:
-        return f"Error connecting to Ollama: {str(e)}\n\nMake sure Ollama is running and TinyLlama is available."
