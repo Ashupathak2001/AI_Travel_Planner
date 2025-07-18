@@ -9,8 +9,7 @@ co = cohere.Client(COHERE_API_KEY)
 
 def generate_itinerary_prompt(data):
     return f'''
-You are an expert travel assistant tasked with creating a personalized and efficient travel itinerary based on the following input details:
-
+You are an expert travel assistant creating a professional, well-structured travel itinerary based on these details:
 **Origin:** {data['origin']}
 **Destination:** {data['destination']}
 **Trip Duration:** {data['trip_length']} days  
@@ -19,24 +18,32 @@ You are an expert travel assistant tasked with creating a personalized and effic
 **Preferred Transportation:** {data['transportation']}  
 **Traveler Interests:** {', '.join(data['activities']) if data['activities'] else 'General'}
 
-### Output Guidelines:
-1. Start with a brief and engaging introductory paragraph about the destination (maximum 60 words).
-2. For each day, provide a concise itinerary summary (ideally 100–120 words per day) including:
-   - A key attraction or theme for the day
-   - One recommended meal (lunch or dinner) with venue or local specialty
-   - A cultural insight, local tip, or fun fact
-3. Use clean and readable Markdown formatting:
-   - Use **bold** for day titles and major highlights
-   - Use `code` formatting for tips, notes, or important local insights
-4. Focus on clarity and value — do not over-describe. Prioritize quality over excessive detail.
-5. For trips longer than 3 days, feel free to summarize or group similar days to stay within scope.
+### Output Requirements:
+1. **Introduction:** Brief, engaging paragraph about the destination (50-60 words max)
+2. **Daily Structure:** Each day should follow this consistent format (100-120 words per day):
+   - **Day X: [Theme/Area]**
+   - Main attraction or activity with brief description
+   - One food recommendation (restaurant name or local specialty)
+   - Practical tip or cultural insight using `code` formatting naturally
+3. **Formatting Standards:**
+   - Use **bold** for day headers and key attractions
+   - Use `code` for practical tips, booking advice, or local insights
+   - Keep structure consistent across all days
+4. **Professional Guidelines:**
+   - Include realistic travel times between locations
+   - Mention advance booking requirements where relevant
+   - Suggest budget-appropriate options when possible
+   - For longer trips (4+ days), group similar activities or highlight key days
+   - Ensure geographical accuracy - only suggest day trips within reasonable distance
 
-### Important:
-- The final output should read naturally and professionally.
-- Avoid repeating common tourist clichés.
-- Return only the formatted itinerary — do not include explanations or disclaimers.
+### Quality Standards:
+- Write naturally and professionally
+- Avoid tourist clichés and generic descriptions
+- Include actionable, specific recommendations
+- Maintain consistent tone throughout
+- Focus on practical value for travelers
 
-Proceed to generate the itinerary accordingly.
+Generate the complete itinerary following these guidelines exactly.
 '''
 
 def generate_with_cohere(prompt, model="command-r-plus"):
