@@ -1,7 +1,7 @@
 # main.py 
 import streamlit as st
 import datetime
-from ai_itinerary import generate_itinerary_prompt, generate_with_ollama
+from ai_itinerary import generate_itinerary_prompt, generate_with_cohere
 from mock_data import generate_mock_flights, generate_mock_hotels, generate_mock_car_rentals
 import folium
 from streamlit_folium import folium_static
@@ -613,7 +613,7 @@ def generate_itinerary():
     
     # AI itinerary
     prompt = generate_itinerary_prompt(data)
-    st.session_state.ai_itinerary = generate_with_ollama(prompt)
+    st.session_state.ai_itinerary = generate_with_cohere(prompt)
 
     # Travel data
     st.session_state.travel_data["flights"] = generate_mock_flights(
