@@ -25,14 +25,12 @@ An intelligent travel planning assistant that creates personalized itineraries u
    cd ai-travel-planner
 
 Install dependencies:
-
 pip install -r requirements.txt
-Start Ollama server (required for local AI):
 
-ollama serve
+
 Run the application:
-
 streamlit run app.py
+
 Usage
 Choose your preferred input method (form or natural language)
 
@@ -53,9 +51,7 @@ Generate your personalized itinerary
 Download or regenerate as needed
 
 Configuration
-Ensure you have these models pulled in Ollama:
-
-ollama pull tinyllama
+Cohere Api key
 
 Project Structure
 
@@ -68,12 +64,7 @@ ai-travel-planner/
 Troubleshooting
 
 Common Issues:
-
-Ollama connection errors:
-
-Ensure Ollama server is running: ollama serve
-
-Check if models are downloaded: ollama list
+Cohere Api key rate limit
 
 Date parsing errors:
 
@@ -93,11 +84,3 @@ Pull requests are welcome! For major changes, please open an issue first.
 License
 MIT
 
-### Important Notes:
-
-1. **Ollama Setup**:
-   - You'll need to have Ollama installed and running locally
-   - The `tinyllama` model should be pulled before first use:
-     ```bash
-     ollama pull tinyllama
-     ```
