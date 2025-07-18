@@ -1,6 +1,5 @@
 streamlit
 cohere
-cohere-client
 requests
 folium
 streamlit_folium
